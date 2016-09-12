@@ -11,5 +11,12 @@
 <form action="InventoryTestServlet">
 	<input type="SUBMIT" value="Send" />
 </form>
+
+<h4>From Below option, Add an item in Inventory.</h4>
+<form action="InventoryTestServlet1">
+	<input type="text" value="Add Item Name"/>
+	<input type="checkbox" value="Are you sure want to add this Item.">
+	<input type="SUBMIT" value="Send" />
+</form>
 </body>
 </html>
