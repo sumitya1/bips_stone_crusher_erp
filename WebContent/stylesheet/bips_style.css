@@ -1,0 +1,119 @@
+body {
+
+	margin:auto;
+
+	padding:0;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+	font-size: 11px;
+
+	line-height: 1.5em;
+
+	color:#241c1a;
+
+	background-color:#FFDAB9;//FFF5EE;
+}
+#bips_container {
+
+       border:5px solid #FFFFFF;
+       height:80px;
+       width: 690px;
+       text-align:center;
+margin:auto;      
+// margin: 80px 0 0 403px;
+       background: url(..\\images\\l1.jpg) repeat-x;
+ }
+#bips_container_sec {
+
+       border:5px solid #FFFFFF;
+       height:540px;
+       width: 690px;
+
+       margin: auto;
+      background: url(..\\images\\bg_slider.jpg) repeat-x;
+    background-size: cover
+ }
+#bips_container h1
+{
+font-size:3.9em;
+margin:50px 50px 150px 30px;
+text-shadow:red 2px 2px, brown -2px -2px;
+}
+#bips_container_fot {
+       border:5px solid #FFFFFF;
+       height:50px;
+       width: 690px;
+       margin: auto;
+       background: url(..\\images\\l1.jpg) repeat-x;
+ }
+#bips_container_fot p
+{
+font-size:1.5em;
+margin:20px 50px 150px 40px;
+text-align:center;
+}
+a {
+	text-decoration: none;
+	color: #588cb8;
+}
+a:hover {
+	text-decoration: underline;
+	color: #ff0000;
+}
+
+/*form*/
+#bips_container_sec form {
+
+		float: left;
+		width: 211px; height: 22px;
+		
+		margin: 70px 10px 50px 230px;
+	}
+		#bips_container_sec form .kk {
+			border: 0;
+			font-size: 1.2em;
+			font-family: Verdana;
+			float: right;
+			width: 180px;
+			margin: 12px 12px 10px 12px;
+		}
+#bips_container_sec form p
+{
+		        border: 0;
+			font-size: 1.9em;
+			font-family: Verdana;
+			float: left;
+			width: 138px;
+			
+			margin: 4px 10px 0 10px;
+}
+		#bips_container_sec form button {
+			
+			width: 61px; height: 25px;
+			float: left;
+			margin: 10px 20px 10px 70px;
+		}
+h3{
+                        font-size: 1.2em;
+			font-family: Verdana;
+			float: left;
+			margin: 10px 10px 10px 40px;
+
+}
+#bips_container_sec form .rem
+{
+
+			float: left;
+			margin: 2px 20px 0px 10px;
+			
+
+}
+#bips_container_sec form .jojo
+{
+
+			float: left;
+			//margin: 0px 8px 5px 0px;
+                         margin:auto;
+                        font-size:0.9em;
+}
