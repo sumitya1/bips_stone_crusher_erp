@@ -8,10 +8,46 @@
 </head>
 <body>
 <h2>Welcome to Inventory Management System.</h2>
-<form action="../com/bips/inventory/controller">
-	<input type="text" value="name" />
-	<input type="text" value="email" />
-	<input type="SUBMIT" value="Send" />
+<form action="../personservlet">
+	<label>Item Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Rate</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Quantity</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Usage</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Fuel</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Amount</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Payment</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label>Balance</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<br>
+	<select name="item" >
+    <option value="tractor">Tractor</option>
+    <option value="hammer">Hammer Machine</option>
+    <option value="crwaler">Crawler Compressor</option>
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="text" value="rate" size="10" />
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<select name="quantity">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+  </select>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="text" value=systemdate size="10" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="text" value="usage" size="10"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="text" value="fuel" size="10"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="text" value="amount" size="10"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="text" value="payment" size="10"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="text" value="balance" size="10"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+  <br/><br/><br/>
+	<input type="SUBMIT" value="Send" size="30"/>
+	
 </form>
 </body>
 </html>
