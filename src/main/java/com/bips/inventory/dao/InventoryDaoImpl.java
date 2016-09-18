@@ -8,24 +8,30 @@ import java.util.List;
 import com.bips.inventory.beans.InventoryBeanModel;
 
 public class InventoryDaoImpl implements InventoryDao{
-	InventoryBeanModel inventory = new InventoryBeanModel();
+	//InventoryBeanModel inventory = new InventoryBeanModel();
 	
 	@Override
 	public void setItems(InventoryBeanModel inventoryitems) {
 		Connection dbConnection = null;
 		Statement statement = null;
 		DataConnection dconn = null;
-
-		String sql = "insert into inventory values("+inventory.getItem()+","+inventory.getRate()
-		+ "," +inventory.getQuantity()+")";
-
+		
+		
+		String sql = "insert into inventory values("+"'"+inventoryitems.getItem()+"'"+
+				","+inventoryitems.getRate()
+		+ "," +inventoryitems.getQuantity()+ "," +"'"+inventoryitems.getSystemdate()+"'"+
+		"," +inventoryitems.getUsage()+ "," +inventoryitems.getFuel()+
+		"," +inventoryitems.getAmount()+ "," +inventoryitems.getPayment()+
+		"," +inventoryitems.getBalance()+")";
+		
+		System.out.println("query is here:"+sql);
 		try
 		{
 			dbConnection = DataConnection.connectionInstance().createConnection();
 			statement = dbConnection.prepareStatement(sql);
 			statement.executeUpdate(sql);
 
-			System.out.println("Record is inserted into Inventory table for InventoryItems: " + inventory.getSystemdate());
+			System.out.println("Record is inserted into Inventory table for InventoryItems: " + inventoryitems.getSystemdate());
 
 		}
 		catch( SQLException e )
