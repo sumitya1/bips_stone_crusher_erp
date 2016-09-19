@@ -1,6 +1,6 @@
 package com.bips.inventory.beans;
 
-public class InventoryBeanModel {
+public class InventoryGetBean {
 	private String item= null;
 	private String rate= null;
 	private String quantity= null;

@@ -8,7 +8,10 @@
 </head>
 <body>
 <h2>Welcome to Inventory Management System.</h2>
-<form action="../personservlet">
+<input type="button" value="Add New Item" name="addnewitem" 
+onclick="window.location='inventoryadditems.jsp'; return true;" />
+
+<form action="../inventoryget">
 	<label>Item Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label>Rate</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label>Quantity</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,7 +49,7 @@
  <input type="text" value="balance" name="balance" size="10"/>
 	&nbsp;&nbsp;&nbsp;&nbsp;
   <br/><br/><br/>
-	<input type="SUBMIT" value="Send" size="30"/>
+	<input type="SUBMIT" value="SUBMIT" size="30"/>
 	
 </form>
 </body>

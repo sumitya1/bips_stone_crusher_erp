@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bips.inventory.beans.InventoryBeanModel;
+import com.bips.inventory.beans.InventoryGetBean;
+import com.bips.inventory.beans.InventorySetBean;
 import com.bips.inventory.dao.InventoryDaoImpl;
 
-
-@WebServlet("/personservlet/*")
+@WebServlet("/inventoryset/*")
 public class InventorySetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,38 +23,21 @@ public class InventorySetServlet extends HttpServlet {
     
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		PrintWriter out = response.getWriter();
-		out.print("BIPS guys are really amazing...");
-		out.print("item"+request.getParameter("item")+"\n");
-		out.print("rate"+request.getParameter("rate")+"\n");
-		out.print("quantity"+request.getParameter("quantity")+"\n");
-		out.print("sysdate"+request.getParameter("systemdate")+"\n");
-		out.print("usage"+request.getParameter("usage")+"\n");
-		out.print("fuel"+request.getParameter("fuel")+"\n");
-		out.print("amount"+request.getParameter("amount")+"\n");
-		out.print("payment"+request.getParameter("payment")+"\n");
-		out.print("balance"+request.getParameter("balance")+"\n");
-		
-		InventoryBeanModel inventory = new InventoryBeanModel();
-		inventory.setItem(request.getParameter("item"));
-		inventory.setRate(request.getParameter("rate"));
-		inventory.setQuantity(request.getParameter("quantity"));
-		inventory.setSystemdate(request.getParameter("systemdate"));
-		inventory.setUsage(request.getParameter("usage"));
-		inventory.setFuel(request.getParameter("fuel"));
-		inventory.setAmount(request.getParameter("amount"));
-		inventory.setPayment(request.getParameter("payment"));
-		inventory.setBalance(request.getParameter("balance"));
+		//out.print("BIPS guys not are really amazing...");
+		InventorySetBean inventoryset = new InventorySetBean();
+		inventoryset.setItem_name(request.getParameter("item_name"));
+		inventoryset.setItem_type(request.getParameter("item_type"));
+		inventoryset.setOwner_name(request.getParameter("owner_name"));
+		inventoryset.setRent_type(request.getParameter("rent_type"));
+		inventoryset.setRent_rate(request.getParameter("rent_rate"));
 		InventoryDaoImpl insertitems = new InventoryDaoImpl();
-		insertitems.setItems(inventory);
-				
-		//request.setAttribute("inventory", inventory);
+		insertitems.addItems(inventoryset);
 		
-		//getServletContext().getRequestDispatcher("/Manager/Manager.jsp").forward(request, response);
-		
+		//getServletContext().getRequestDispatcher("/login/Home.jsp").forward(request, response);
+
 	}
 
 	
