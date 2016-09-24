@@ -34,9 +34,12 @@ public class InventorySetServlet extends HttpServlet {
 		inventoryset.setRent_type(request.getParameter("rent_type"));
 		inventoryset.setRent_rate(request.getParameter("rent_rate"));
 		InventoryDaoImpl insertitems = new InventoryDaoImpl();
-		insertitems.addItems(inventoryset);
+		String msg = insertitems.addItems(inventoryset);
 		
-		//getServletContext().getRequestDispatcher("/login/Home.jsp").forward(request, response);
+		request.setAttribute("msg", msg);
+		request.getRequestDispatcher("/inventory/success.jsp").forward(request,
+				response);
+
 
 	}
 

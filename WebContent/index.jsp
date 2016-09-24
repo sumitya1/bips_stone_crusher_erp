@@ -13,7 +13,11 @@
 <div id="bips_container_sec">
 <div class="subdiv">
 <a href="login/Login.jsp"><h1>Login</h1></a>
-<a href="inventory/inventoryindex.jsp"><h1>Inventory</h1></a>
+<form action="inventoryget" method="get">
+<input type="SUBMIT" value="Inventory" size="30"/>
+</form>
+<!-- <a href="inventory/inventoryindex.jsp"><h1>Inventory</h1></a> -->
+
 <h1>Mining</h1>
 <h1>EMployee Management</h1>
 <a href="Admin/Admin.jsp"><h1>Admin</h1></a>
