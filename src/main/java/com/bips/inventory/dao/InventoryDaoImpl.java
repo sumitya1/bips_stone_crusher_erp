@@ -31,15 +31,6 @@ public class InventoryDaoImpl implements InventoryDao{
 	@Override
 	public String submitItems(InventoryGetBean inventoryitems) {
 
-		/*sql = "insert into inventory values("+"'"+inventoryitems.getItem()+"'"+
-				","+inventoryitems.getRate()
-				+ "," +inventoryitems.getQuantity()+ "," +"'"+inventoryitems.getSystemdate()+"'"+
-				"," +inventoryitems.getUsage()+ "," +inventoryitems.getFuel()+
-				"," +inventoryitems.getAmount()+ "," +inventoryitems.getPayment()+
-				"," +inventoryitems.getBalance()+")";
-
-		System.out.println("query is here:"+sql);
-		*/
 		try
 		{
 			dbConnection = DataConnection.connectionInstance().createConnection();
@@ -109,16 +100,11 @@ public class InventoryDaoImpl implements InventoryDao{
 			statement= dbConnection.createStatement();
 			rs = statement.executeQuery(sql);
 			al = new ArrayList<InventoryFetchBean>();
-			System.out.println("query is here:"+sql);
 			while(rs.next()){
-				System.out.println("rs.getRow() is here:"+rs.getRow());
-				System.out.println("values are"+rs.getNString(1));
 				infb = new InventoryFetchBean();
 				infb.setItem_name(rs.getNString(1));
 				infb.setRent_rate(rs.getNString(2));
 				infb.setRent_type(rs.getNString(3));
-				System.out.println("values are"+rs.getNString(1)+rs.getNString(2)+rs.getNString(3));
-				System.out.println("here rs.next() is here:"+rs.getRow());
 				al.add(infb);
 			}
 
@@ -175,9 +161,8 @@ public class InventoryDaoImpl implements InventoryDao{
 			statement.setString(4, setitems.getRent_type());
 			statement.setString(5,setitems.getRent_rate());
 			statement.setString(6,systemdate);
-			int i=statement.executeUpdate();  
-			System.out.println("records inserted into db:"+i);
-
+			statement.executeUpdate();  
+			
 		}
 		catch( SQLException e )
 		{

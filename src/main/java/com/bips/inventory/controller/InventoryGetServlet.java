@@ -37,14 +37,6 @@ public class InventoryGetServlet extends HttpServlet {
 		InventoryDaoImpl indaoimpl = new InventoryDaoImpl();
 		List<InventoryFetchBean> records = indaoimpl.getAllItems();
 		out.print("we are here!!!");
-		for(InventoryFetchBean lst: records){
-			String st1 = lst.getItem_name();
-			String st2 = lst.getRent_rate();
-			String st3 = lst.getRent_type();
-			System.out.println("values fetched are:-"+st1+st2+st3);
-		}
-		
-		out.print("we are here out!!!");
 		request.setAttribute("records", records);
 		
 		request.getRequestDispatcher("/inventory/inventoryindex.jsp").forward(request, response);
