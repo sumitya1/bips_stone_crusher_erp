@@ -6,6 +6,14 @@ public class InventorySetBean {
 	private String owner_name= null;
 	private String rent_type=null;
 	private String rent_rate= null;
+	private String emi = null;
+	
+	public String getEmi() {
+		return emi;
+	}
+	public void setEmi(String emi) {
+		this.emi = emi;
+	}
 	public String getItem_name() {
 		return item_name;
 	}

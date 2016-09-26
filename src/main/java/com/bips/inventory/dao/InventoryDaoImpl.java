@@ -154,13 +154,14 @@ public class InventoryDaoImpl implements InventoryDao{
 		try
 		{
 			dbConnection = DataConnection.connectionInstance().createConnection();
-			PreparedStatement statement=dbConnection.prepareStatement("insert into inventoryitems values(?,?,?,?,?,?)");
+			PreparedStatement statement=dbConnection.prepareStatement("insert into inventoryitems values(?,?,?,?,?,?,?)");
 			statement.setString(1,setitems.getItem_name());
 			statement.setString(2,setitems.getItem_type());
 			statement.setString(3,setitems.getOwner_name());
 			statement.setString(4, setitems.getRent_type());
 			statement.setString(5,setitems.getRent_rate());
-			statement.setString(6,systemdate);
+			statement.setString(6,setitems.getEmi());
+			statement.setString(7,systemdate);
 			statement.executeUpdate();  
 			
 		}

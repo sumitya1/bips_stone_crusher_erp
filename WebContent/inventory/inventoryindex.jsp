@@ -22,63 +22,55 @@
 
 var rentArray = [];
 var itemArray = [];
+var renttypeArray = [];
 
-  $( function() {
-    $( "#currentdate" ).datepicker();
+  $(function() {
+    $("#currentdate").datepicker();
   } );
   
  function getrate() {
-		//var itemvalue = document.getElementById('item_selected').id
-		
-		
 		<% for (int j=0; j<records.size(); j++) { %>
          rentArray[<%= j %>] = <%= records.get(j).getRent_rate() %>; 
-        
         <% } %>
-	 	
-        for (var l = 0; l < rentArray.length; l++) {
-        	console.log(rentArray[l]);
-        	}
         
         <% for (int k=0; k<records.size(); k++) { %>
         itemArray[<%= k %>] = "<%= records.get(k).getItem_name() %>";
-        
        <% } %>
 
-       for (var m = 0; m < itemArray.length; m++) {
-       	console.log(rentArray[m]);
-       	}
-       
+       <% for (int n=0; n<records.size(); n++) { %>
+       renttypeArray[<%= n %>] = "<%= records.get(n).getRent_type() %>"; 
+      <% } %>
+	 	
+      for (var l = 0; l < rentArray.length; l++) {
+      	console.log(rentArray[l]);
+      	}
        
 		var e = document.getElementById('item_selected');
-		console.log(e);
-		
 		var itemvalue = e.options[e.selectedIndex].value;
 		
-		console.log(itemvalue);
+		console.log("item value is :="+itemvalue);
 		
 		var itmind = itemArray.indexOf(itemvalue); 
 		
-		console.log(itmind);
+		console.log("Item index is:="+itmind);
 		
-		switch(itmind){
-		case "1":
-		document.getElementById("rate").value = <%= records.get(0).getRent_rate()%>
-		break;
-		case "2":
-			document.getElementById("rate").value = <%= records.get(1).getRent_rate()%>
-			break;
-		case "3":
-			document.getElementById("rate").value = <%= records.get(2).getRent_rate()%>
-			break;
+		console.log("Rent is:="+rentArray[itmind]);
+		console.log("Rent type is:="+renttypeArray[itmind]);
+		
+		if(renttypeArray[itmind]){
+		document.getElementById("rate").value = rentArray[itmind];
+		document.getElementById("usage").value = renttypeArray[itmind];
 		}
-		
+		else{
+			document.getElementById("rate").value = "Owned";
+			document.getElementById("usage").value = "Owned";
+		}
 	}
   
    </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>BIPS STONE CRUSHER ERP</title>
 </head>
 <body>
 
@@ -103,12 +95,10 @@ var itemArray = [];
 			
 			 <select id="item_selected" name="item" style="margin-left: 25px;" onclick='getrate()'>
 			<% for(int i = 0; i < records.size(); i++) { %>
-			
-			<option><%= records.get(i).getItem_name()%></option>
+	    		<option><%= records.get(i).getItem_name()%></option>
 			<% } %>
 		</select> 
-		<input id="rate" type="text" value="rate" name="rate"
-			style="margin-left: 25px;" size="10" /> 
+		<input id="rate" type="text" value="rate" name="rate" disabled="disabled" style="margin-left: 25px;" size="10" /> 
 			
 			<select name="quantity"
 			style="margin-left: 10px;">
@@ -118,24 +108,16 @@ var itemArray = [];
 			<option value="4">4</option>
 		</select> 
 		
-		<input type="text" value=systemdate id="currentdate"
-			name="systemdate" style="margin-left: 10px;" size="10" />
-			 <input
-			type="text" value="usage" name="usage" style="margin-left: 10px;"
-			size="10" /> 
-			<input type="text" value="fuel" name="fuel"
-			style="margin-left: 10px;" size="10" />
-			 <input type="text"
-			value="amount" name="amount" style="margin-left: 10px;" size="10" />
+		<input type="text" value="mm/dd/yyyy" id="currentdate" name="systemdate" style="margin-left: 10px;" size="10" />
+		<input id="usage" type="text" value="usage" name="usage" disabled="disabled" style="margin-left: 10px;" size="10" /> 
+		<input type="text" value="fuel" name="fuel" style="margin-left: 10px;" size="10" />
+		<input type="text" value="amount" name="amount" style="margin-left: 10px;" size="10" />
 
-		<input type="text" value="payment" name="payment"
-			style="margin-left: 10px;" size="10" />
-			 <input type="text"
-			value="balance" name="balance" style="margin-left: 10px;" size="10" />
+		<input type="text" value="payment" name="payment" style="margin-left: 10px;" size="10" />
+		<input type="text" value="balance" name="balance" style="margin-left: 10px;" size="10" />
 
 		<br /> <br /> <br /> 
-		<input type="SUBMIT" value="SUBMIT"
-			style="margin-left: 25px;" size="30" />
+		<input type="SUBMIT" value="SUBMIT" style="margin-left: 25px;" size="30" />
 
 	</form>
 </body>
