@@ -1,0 +1,51 @@
+Inventory query
+oracle
+CREATE TABLE inventory
+     (
+        item              VARCHAR2(30)         NOT NULL , 
+        rate       	     VARCHAR2(30)          NULL , 
+        quantity     VARCHAR2(30)             NULL , 
+        systemdate     VARCHAR2(30)           NULL , 
+        usage   	 VARCHAR2(30)             NULL , 
+        fuel        VARCHAR2(30)        NULL , 
+		amount        VARCHAR2(30)        NULL , 
+		payment        VARCHAR2(30)        NULL , 
+		balance        VARCHAR2(30)        NULL , 
+        CONSTRAINT PK_INVENTORY PRIMARY KEY (item)
+     )
+TABLESPACE users
+STORAGE ( INITIAL 50K);
+
+CREATE TABLE inventoryitems
+     (
+        item_name              VARCHAR2(30)         NOT NULL , 
+        item_type       	     VARCHAR2(30)          NULL , 
+        owner_name     VARCHAR2(30)             NULL , 
+        rent_type     VARCHAR2(30)           NULL , 
+        rent_rate   	 VARCHAR2(30)             NULL , 
+        record_insert_date VARCHAR2(30)        NULL , 
+        CONSTRAINT PK_INVENTORYITEM PRIMARY KEY (item_name)
+     )
+TABLESPACE users
+STORAGE ( INITIAL 50K);
+
+--------------------------------------
+
+Minning query
+
+mysql
+create table minning(noOfHoles varchar(10),feet varchar(10),rate varchar(
+10),date varchar(20),totalFeet varchar(20),totalRS varchar(20));
+
+
+oracle 
+
+create table minning(
+noOfHoles varchar(10) NULL,
+feet varchar2(10)  NULL,
+rate varchar2(10)  NULL,
+systemdate varchar2(20)  NULL,
+totalFeet varchar2(20)  NULL,
+totalRS varchar2(20) NULL)
+TABLESPACE users
+STORAGE ( INITIAL 50K);
