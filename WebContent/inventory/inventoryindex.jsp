@@ -67,6 +67,31 @@ var renttypeArray = [];
 		}
 	}
   
+ 
+ function deleteRow(row)
+ {
+     var i=row.parentNode.parentNode.rowIndex;
+     document.getElementById('iventorygettable').deleteRow(i);
+ }
+
+ 
+ function insRow()
+ {
+     console.log( 'haula');
+     var x=document.getElementById('iventorygettable');
+     var new_row = x.rows[1].cloneNode(true);
+     var len = x.rows.length;
+     //new_row.cells[0].innerHTML = len;
+     
+     var inp1 = new_row.cells[0].getElementsByTagName('select');
+     inp1.id += len;
+     inp1.value = '';
+     var inp2 = new_row.cells[1].getElementsByTagName('input');
+     inp2.id += len;
+     inp2.value = '';
+     x.appendChild( new_row );
+ }
+ 
    </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -78,47 +103,65 @@ var renttypeArray = [];
 	<input type="button" value="Add New Item" style="margin-left: 25px;"
 		name="addnewitem"
 		onclick="window.location='inventory/inventoryadditems.jsp'; return true;" />
-	<br>
-	<br>
 	<form action="inventoryget" method="post">
-		<label style="margin-left: 50px;">Item Name</label> <label
-			style="margin-left: 50px;">Rate</label> <label
-			style="margin-left: 50px;">Quantity</label> <label
-			style="margin-left: 50px;">Date</label> <label
-			style="margin-left: 50px;">Usage</label> <label
-			style="margin-left: 50px;">Fuel</label> <label
-			style="margin-left: 50px;">Amount</label> <label
-			style="margin-left: 50px;">Payment</label> <label
-			style="margin-left: 50px;">Balance</label> 
+	
+		 <table id="iventorygettable" border="1">
+		 <tr>
+		<td><label style="margin-left: 50px;">Item Name</label></td> 
+		<td><label style="margin-left: 50px;">Rate</label></td> 
+		<td><label style="margin-left: 50px;">Quantity</label></td>
+		<td><label style="margin-left: 50px;">Date</label></td> 
+		<td><label style="margin-left: 50px;">Usage</label></td> 
+		<td><label style="margin-left: 50px;">Fuel</label></td> 
+		<td><label style="margin-left: 50px;">Amount</label></td> 
+		<td><label style="margin-left: 50px;">Payment</label></td> 
+		<td><label style="margin-left: 50px;">Balance</label></td>
+		<td><label style="margin-left: 50px;">Add Row</label></td>
+		<td><label style="margin-left: 50px;">Delete Row</label></td> 
+		</tr>
 			
-			<br> <br>
-			
+			<tr>
+			<td>
 			 <select id="item_selected" name="item" style="margin-left: 25px;" onclick='getrate()'>
 			<% for(int i = 0; i < records.size(); i++) { %>
 	    		<option><%= records.get(i).getItem_name()%></option>
 			<% } %>
-		</select> 
-		<input id="rate" type="text" value="rate" name="rate" disabled="disabled" style="margin-left: 25px;" size="10" /> 
+		</select>
+		</td> 
+		
+		<td><input id="rate" type="text" value="rate" name="rate" disabled="disabled" style="margin-left: 25px;" size="10" /></td> 
 			
+			<td>
 			<select name="quantity"
 			style="margin-left: 10px;">
-			<option value="1">1</option>
+			<option value="1" selected>1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
 			<option value="4">4</option>
+			<option value="4">5</option>
+			<option value="4">6</option>
+			<option value="4">7</option>
+			<option value="4">8</option>
+			<option value="4">9</option>
+			<option value="4">10</option>
 		</select> 
+		</td>
+		<td><input type="text" value="mm/dd/yyyy" id="currentdate" name="systemdate" style="margin-left: 10px;" size="10" /></td>
+		<td><input id="usage" type="text" value="usage" name="usage" disabled="disabled" style="margin-left: 10px;" size="10" /></td> 
+		<td><input type="text" value="fuel" name="fuel" style="margin-left: 10px;" size="10" /></td>
+		<td><input type="text" value="amount" name="amount" style="margin-left: 10px;" size="10" /></td>
+
+		<td><input type="text" value="payment" name="payment" style="margin-left: 10px;" size="10" /></td>
+		<td><input type="text" value="balance" name="balance" style="margin-left: 10px;" size="10" /></td>
 		
-		<input type="text" value="mm/dd/yyyy" id="currentdate" name="systemdate" style="margin-left: 10px;" size="10" />
-		<input id="usage" type="text" value="usage" name="usage" disabled="disabled" style="margin-left: 10px;" size="10" /> 
-		<input type="text" value="fuel" name="fuel" style="margin-left: 10px;" size="10" />
-		<input type="text" value="amount" name="amount" style="margin-left: 10px;" size="10" />
+		<td><input type="button" id="delItembutton" value="Delete Row" onclick="deleteRow(this)"/></td>
+        <td><input type="button" id="addmoreItembutton" value="Add Row" onclick="insRow()"/></td>
 
-		<input type="text" value="payment" name="payment" style="margin-left: 10px;" size="10" />
-		<input type="text" value="balance" name="balance" style="margin-left: 10px;" size="10" />
-
-		<br /> <br /> <br /> 
+		
+		 
+		</tr>
 		<input type="SUBMIT" value="SUBMIT" style="margin-left: 25px;" size="30" />
-
+	</table>
 	</form>
 </body>
 </html>
