@@ -41,57 +41,136 @@ var renttypeArray = [];
        renttypeArray[<%= n %>] = "<%= records.get(n).getRent_type() %>"; 
       <% } %>
 	 	
-      for (var l = 0; l < rentArray.length; l++) {
-      	console.log(rentArray[l]);
-      	}
+      //for (var l = 0; l < rentArray.length; l++) {
+      //	console.log(rentArray[l]);
+      //	}
        
 		var e = document.getElementById('item_selected');
 		var itemvalue = e.options[e.selectedIndex].value;
 		
-		console.log("item value is :="+itemvalue);
+		//console.log("item value is :="+itemvalue);
 		
 		var itmind = itemArray.indexOf(itemvalue); 
 		
-		console.log("Item index is:="+itmind);
-		
-		console.log("Rent is:="+rentArray[itmind]);
-		console.log("Rent type is:="+renttypeArray[itmind]);
-		
 		if(renttypeArray[itmind]){
-		document.getElementById("rate").value = rentArray[itmind];
-		document.getElementById("usage").value = renttypeArray[itmind];
-		}
-		else{
-			document.getElementById("rate").value = "Owned";
-			document.getElementById("usage").value = "Owned";
-		}
+			document.getElementById("rate").value = rentArray[itmind];
+			console.log("rentrate is:="+rentArray[itmind]);
+			document.getElementById("usage").value = renttypeArray[itmind];
+				if(document.getElementById("usage").value == "hourly"){
+					document.getElementById("usage").value = "enter hours";
+					//document.getElementById("usage").disabled = false;
+				}
+				if(document.getElementById("usage").value == "daily"){
+					//document.getElementById("usage").disabled = true;
+				}
+				if(document.getElementById("usage").value == null){
+					document.getElementById("usage").value = "Owned vehicle";
+					console.log("Usage is:="+document.getElementById("usage").value);
+				}
+				
+		 }
+		
 	}
-  
- 
- function deleteRow(row)
- {
-     var i=row.parentNode.parentNode.rowIndex;
-     document.getElementById('iventorygettable').deleteRow(i);
+ function getamount() {
+	
+	  var itemrate = document.getElementById('rate').value;
+	  var e = document.getElementById('quantity');
+	  var quantityvalue = e.options[e.selectedIndex].value;
+	  var usageval = document.getElementById('usage').value;
+	
+	  if(document.getElementById('rate').value == null){
+		  document.getElementById('amount').value="";
+		  //document.getElementById('amount').disabled = true;
+	  }
+	  else{
+	    	if(document.getElementById('usage').value == "daily"){
+    			  var itemamount = itemrate * quantityvalue * 1;
+    	  		  console.log("itemamount is:="+itemamount);
+    	  	 	  document.getElementById('amount').value = itemamount;
+             }
+	    	else if(document.getElementById('usage').value == "-1"){
+  			  
+  	  	 	  document.getElementById('amount').value = "NA";
+  	  	 	  document.getElementById('payment').value = "NA";
+  	  	      document.getElementById('balance').value = "NA";
+  	  	 		
+           }
+	    	else{
+    	  
+	   	  		  var itemamount = itemrate * quantityvalue * usageval;
+    	  		document.getElementById('amount').value = itemamount;
+        	}
+	  }
+	  
+	 
  }
+ 
+ function getbalance() {
+		
+	  var amountval = document.getElementById('amount').value;
+	  console.log("itemrate is:="+amountval);
+	 
+	  var paymentval = document.getElementById('payment').value;
+	  console.log("itemrate is:="+amountval);
+	  
+	  var balanceval = amountval - paymentval;
+	  
+	  if(amountval<paymentval){
+		 alert( "Payment should be less than Amount"); 
+	  }
+	  else{
+	      document.getElementById('balance').value = balanceval;
+	  }
+}
+ 
+ function validate()
+ {
+		if( document.submitform.quantity.value == "-1" )
+	     {
+	         alert( "Please select Quantity of items!" );
+	         return false;
+	     }
+	       
+		 
+	       if( document.submitform.usage.value == "" || document.submitform.usage.value == "enter hours")
+	       {
+	          alert( "Please enter no. of hours!" );
+	          document.submitform.usage.focus() ;
+	          return false;
+	       }
+		
+	       if( document.submitform.fuel.value == "" || document.submitform.fuel.value == "0L")
+	       {
+	          alert( "Please enter Fuel Qauantity!" );
+	          document.submitform.fuel.focus() ;
+	          return false;
+	       }
+	       
+	       if( document.submitform.payment.value == "" || document.submitform.payment.value == "Enter Payment Amount")
+	       {
+	          alert( "Please enter Payment Amount!" );
+	          document.submitform.payment.focus() ;
+	          return false;
+	       }
+	       
+	       if(document.submitform.systemdate.value == "mm/dd/yyyy")
+	       {
+	          alert( "Please Select Date!" );
+	          document.submitform.usage.focus() ;
+	          return false;
+	       }
+	    
+		  return(true);
+ }
+ 
+ /*function submitForm() {
+	  
+	   var frm = document.getElementsByName('submitform')[0];
+	   frm.submit(); // Submit
+	   frm.reset();  // Reset
+	   return false; // Prevent page refresh
+	} */
 
- 
- function insRow()
- {
-     console.log( 'haula');
-     var x=document.getElementById('iventorygettable');
-     var new_row = x.rows[1].cloneNode(true);
-     var len = x.rows.length;
-     //new_row.cells[0].innerHTML = len;
-     
-     var inp1 = new_row.cells[0].getElementsByTagName('select');
-     inp1.id += len;
-     inp1.value = '';
-     var inp2 = new_row.cells[1].getElementsByTagName('input');
-     inp2.id += len;
-     inp2.value = '';
-     x.appendChild( new_row );
- }
- 
    </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -100,12 +179,12 @@ var renttypeArray = [];
 <body>
 
 	<h2 align="center">Welcome to Inventory Management System</h2>
-	<input type="button" value="Add New Item" style="margin-left: 25px;"
-		name="addnewitem"
+	<input type="button" value="Add New Item" style="margin-left: 50px;" style="margin-top:50px;" name="addnewitem"
 		onclick="window.location='inventory/inventoryadditems.jsp'; return true;" />
-	<form action="inventoryget" method="post">
+		
+	<form action="inventoryget" name="submitform" onsubmit="return(validate());" method="post">
 	
-		 <table id="iventorygettable" border="1">
+		 <table id="iventorygettable" style="margin-left: 50px;" border="1" cellspacing="1" cellpadding="1">
 		 <tr>
 		<td><label style="margin-left: 50px;">Item Name</label></td> 
 		<td><label style="margin-left: 50px;">Rate</label></td> 
@@ -116,8 +195,7 @@ var renttypeArray = [];
 		<td><label style="margin-left: 50px;">Amount</label></td> 
 		<td><label style="margin-left: 50px;">Payment</label></td> 
 		<td><label style="margin-left: 50px;">Balance</label></td>
-		<td><label style="margin-left: 50px;">Add Row</label></td>
-		<td><label style="margin-left: 50px;">Delete Row</label></td> 
+		 
 		</tr>
 			
 			<tr>
@@ -129,38 +207,40 @@ var renttypeArray = [];
 		</select>
 		</td> 
 		
-		<td><input id="rate" type="text" value="rate" name="rate" disabled="disabled" style="margin-left: 25px;" size="10" /></td> 
+		<td><input id="rate" type="text" value="rate" name="rate" style="margin-left: 25px;" size="10" readonly="readonly" /></td> 
 			
 			<td>
-			<select name="quantity"
-			style="margin-left: 10px;">
-			<option value="1" selected>1</option>
+			<select id="quantity" name="quantity" style="margin-left: 10px;" onchange="getamount();">
+			<option value="-1" selected>[choose quantity]</option>
+			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
 			<option value="4">4</option>
-			<option value="4">5</option>
-			<option value="4">6</option>
-			<option value="4">7</option>
-			<option value="4">8</option>
-			<option value="4">9</option>
-			<option value="4">10</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
 		</select> 
 		</td>
 		<td><input type="text" value="mm/dd/yyyy" id="currentdate" name="systemdate" style="margin-left: 10px;" size="10" /></td>
-		<td><input id="usage" type="text" value="usage" name="usage" disabled="disabled" style="margin-left: 10px;" size="10" /></td> 
-		<td><input type="text" value="fuel" name="fuel" style="margin-left: 10px;" size="10" /></td>
-		<td><input type="text" value="amount" name="amount" style="margin-left: 10px;" size="10" /></td>
+		<td><input id="usage" type="text" value="usage" name="usage" style="margin-left: 10px;" size="10" onchange="getamount();" onfocus="getamount();" /></td> 
+		<td><input type="text" value="0L" name="fuel" style="margin-left: 10px;" size="10" onchange="getamount();"/></td>
+		<td><input id="amount" type="text" value="amount" name="amount" style="margin-left: 10px;" size="10" readonly="readonly" /></td>
 
-		<td><input type="text" value="payment" name="payment" style="margin-left: 10px;" size="10" /></td>
-		<td><input type="text" value="balance" name="balance" style="margin-left: 10px;" size="10" /></td>
+		<td><input id="payment" type="text" value="Enter Payment Amount" name="payment" style="margin-left: 10px;" size="10" onchange="getbalance();"/></td>
+		<td><input id="balance" type="text" value="balance" name="balance" style="margin-left: 10px;" size="10" /></td>
 		
-		<td><input type="button" id="delItembutton" value="Delete Row" onclick="deleteRow(this)"/></td>
-        <td><input type="button" id="addmoreItembutton" value="Add Row" onclick="insRow()"/></td>
-
-		
-		 
 		</tr>
-		<input type="SUBMIT" value="SUBMIT" style="margin-left: 25px;" size="30" />
+		<tr height="50px">
+		<td align="center" colspan="9" >
+		<input type="SUBMIT" value="SUBMIT" style="margin-left: 25px;" size="50" />
+		<!-- <input type="button" value="SUBMIT" id="btnsubmit" onclick="submitForm()" style="margin-left: 25px;" size="50"> -->
+		</td>
+		</tr>
+		
+		
 	</table>
 	</form>
 </body>

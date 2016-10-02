@@ -16,16 +16,15 @@ import com.bips.inventory.beans.InventoryGetBean;
 import com.bips.inventory.beans.InventorySetBean;
 
 public class InventoryDaoImpl implements InventoryDao{
-	Connection dbConnection = null;
-	Statement statement = null;
-	DataConnection dconn = null;
-	ResultSet rs = null;
-	String sql = null;
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	Date date = new Date();
-	InventoryFetchBean infb = null;
-	String systemdate = dateFormat.format(date);
-	List<InventoryFetchBean> al = null;
+	private Connection dbConnection = null;
+	private  Statement statement = null;
+	private  ResultSet rs = null;
+	private  String sql = null;
+	private  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private  Date date = new Date();
+	private  InventoryFetchBean infb = null;
+	private  String systemdate = dateFormat.format(date);
+	private  List<InventoryFetchBean> al = null;
 
 
 	@Override
@@ -34,10 +33,17 @@ public class InventoryDaoImpl implements InventoryDao{
 		try
 		{
 			dbConnection = DataConnection.connectionInstance().createConnection();
-			statement = dbConnection.prepareStatement(sql);
-			statement.executeUpdate(sql);
+			System.out.println("values are-"+inventoryitems.getItem()+"\t"+inventoryitems.getRate()+"\t"
+					+inventoryitems.getQuantity()+"\t"
+					+inventoryitems.getSystemdate()+"\t"
+					+inventoryitems.getUsage()+"\t"
+					+inventoryitems.getFuel()+"\t"
+					+inventoryitems.getAmount()+"\t"
+					+inventoryitems.getPayment()+"\t"
+					+inventoryitems.getBalance()+"\t");
 			
-			PreparedStatement statement=dbConnection.prepareStatement("insert into inventoryitems values(?,?,?,?,?,?,?,?,?)");
+			
+			PreparedStatement statement=dbConnection.prepareStatement("insert into inventory values(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1,inventoryitems.getItem());
 			statement.setString(2,inventoryitems.getRate());
 			statement.setString(3,inventoryitems.getQuantity());

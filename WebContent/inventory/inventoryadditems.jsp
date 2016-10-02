@@ -86,6 +86,10 @@
        
     }
 	
+	/*$('#configsubmit').click(function(){
+        $('#configform')[0].reset();
+});*/
+	
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -94,7 +98,7 @@
 <body>
 	<h2 align="center">Welcome to Inventory Management System</h2>
 
-	<form action="../inventoryset" name="submitform" onsubmit="return(validate());" >
+	<form action="../inventoryset" name="submitform" id="configform" onsubmit="return(validate());" >
 		<label style="margin-left: 50px;">Item Name:</label>
 		<input type="text" name="item_name" size="10" /> <br>
 		<br> <label style="margin-left: 50px;">Item Type:</label>
@@ -137,7 +141,9 @@
 		</table>
 		<br />
 		<br />
-		<br /> <input type="SUBMIT" value="SUBMIT" size="30" />
+		<br /> 
+			 <input type="SUBMIT" value="SUBMIT" size="30"/>
+		<!-- <input type="button" value="SUBMIT" id="btnsubmit" onclick="submitForm()"> -->
 
 	</form>
 </body>

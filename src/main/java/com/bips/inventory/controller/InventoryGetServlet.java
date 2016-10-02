@@ -51,6 +51,11 @@ public class InventoryGetServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("BIPS guys are really amazing in doPost");
 		//out.print("item"+request.getParameter("item")+"\n");
+		/*out.print("values are:-"+request.getParameter("item")+"\n"+request.getParameter("rate")+"\n"+request.getParameter("quantity")+"\n"+request.getParameter("systemdate")+"\n"
+				+request.getParameter("usage")+"\n"+request.getParameter("fuel")+"\n"+request.getParameter("amount")+"\n"+request.getParameter("payment")+"\n"
+				+request.getParameter("balance")+"\n");
+		*/
+		
 		
 		InventoryGetBean inventory = new InventoryGetBean();
 		inventory.setItem(request.getParameter("item"));
@@ -68,7 +73,7 @@ public class InventoryGetServlet extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.getRequestDispatcher("/inventory/success.jsp").forward(request,
 				response);
-
+		
 	}
 
 }
