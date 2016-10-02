@@ -11,7 +11,7 @@ import com.bips.sales.beans.SalesBean;
 import com.bips.sales.dao.SalesDaoImpl;
 
 
-@WebServlet("/salescontroller")
+@WebServlet("/salescontroller/*")
 public class SalesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

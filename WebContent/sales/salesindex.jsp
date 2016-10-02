@@ -59,30 +59,37 @@
 	          return false;
 	       } 
 		
-	       if( document.submitform.rate.value == "")
+	       if( document.submitform.rate.value == "" || document.submitform.rate.value == "rate")
 	       {
 	          alert( "Please Enter Rate!" );
 	          document.submitform.rate.focus() ;
 	          return false;
 	       }
 		
-	       if( document.submitform.quantity.value == "")
+	       if( document.submitform.quantity.value == "" || document.submitform.quantity.value == "Quantity")   
 	       {
 	          alert( "Please enter Qauantity!" );
 	          document.submitform.quantity.focus() ;
 	          return false;
 	       }
 	       
-	       if( document.submitform.no_of_truck.value == "-1")
+	       if( document.submitform.no_of_trucks.value == "-1")
 	       {
 	          alert( "Please Select No. of Trucks!" );
 	           return false;
 	       }
 	       
-	       if( document.submitform.company_name.value == "")
+	       if( document.submitform.company_name.value == "" || document.submitform.company_name.value == "company_name") 
 	       {
 	          alert( "Please Enter Company Name, where good are being Sent" );
 	          document.submitform.company_name.focus() ;
+	          return false;
+	       }
+	       
+	       if( document.submitform.payment.value == "" || document.submitform.payment.value == "Enter Payment Amount") 
+	       {
+	          alert( "Please Enter Payment Amount" );
+	          document.submitform.payment.focus() ;
 	          return false;
 	       }
 	       
@@ -108,7 +115,7 @@
 
 	<h2 align="center">Welcome to Sales Management System</h2>
 		
-	<form action="salescontroller" name="submitform" onsubmit="return(validate());" method="post">
+	<form action="../salescontroller" name="submitform" onsubmit="return(validate());" method="post">
 	
 		 <table id="iventorygettable" style="margin-left: 50px;" border="1" cellspacing="1" cellpadding="1">
 		 <tr>
