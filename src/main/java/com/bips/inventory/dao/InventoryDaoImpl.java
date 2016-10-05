@@ -27,7 +27,6 @@ public class InventoryDaoImpl implements InventoryDao{
 	private  List<InventoryFetchBean> al = null;
 
 
-	@Override
 	public String submitItems(InventoryGetBean inventoryitems) {
 
 		try
@@ -96,7 +95,6 @@ public class InventoryDaoImpl implements InventoryDao{
 
 	}
 
-	@Override
 	public List<InventoryFetchBean> getAllItems() {
 
 		sql = "select ITEM_NAME, RENT_RATE, RENT_TYPE from inventoryitems";
@@ -153,7 +151,6 @@ public class InventoryDaoImpl implements InventoryDao{
 
 	}
 
-	@Override
 	public String addItems(InventorySetBean setitems) {
 
 

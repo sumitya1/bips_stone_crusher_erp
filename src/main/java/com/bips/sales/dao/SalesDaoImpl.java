@@ -11,7 +11,6 @@ public class SalesDaoImpl implements SalesDao{
 	private Connection dbConnection = null;
 	private  Statement statement = null;
 
-	@Override
 	public String submitItems(SalesBean salesitems) {
 		try
 		{
