@@ -11,36 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bips.report.beans.DateSelectorBean;
 import com.bips.report.dao.ReportDaoImpl;
+import com.bips.report.utility.PDFReport;
 
 
-@WebServlet("/dateselector/*")
-public class DateSelectorController extends HttpServlet {
+@WebServlet("/pdfreport/*")
+public class PDFReportGenerator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-
+	private String msg = null; 
+	private PDFReport pdfreport = null;
 
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
-		
-		
-		String fromdate = request.getParameter("fromdate");
-		String todate = request.getParameter("todate");
-		ReportDaoImpl reprtdaoimpl = new ReportDaoImpl();
-		
-	    List<DateSelectorBean> records = null;
+		pdfreport = new PDFReport();
 		try {
-			records = reprtdaoimpl.findData(fromdate, todate);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			msg = pdfreport.generateReport();
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
-		
-		for(DateSelectorBean record:records){
-			System.out.println("in COntrolller"+record.getItem()+
-					record.getRate()	
-					);
-		}
-	    request.setAttribute("records", records);
+
+		request.setAttribute("msg", msg);
 		request.getRequestDispatcher("/report/record.jsp").forward(request,
 				response);
 

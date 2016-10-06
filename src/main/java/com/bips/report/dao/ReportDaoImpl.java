@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-
 import com.bips.inventory.dao.DataConnection;
 import com.bips.report.beans.DateSelectorBean;
 
@@ -14,21 +13,22 @@ import com.bips.report.beans.DateSelectorBean;
 public class ReportDaoImpl implements ReportDao{
 
 	private Connection dbConnection = null;
-	private List list= null;
+	private List<DateSelectorBean> list= null;
 
 	public List<DateSelectorBean> findData(String fromdate,String todate) throws ClassNotFoundException{
-		
-				
+
+
 		try {
 			dbConnection = DataConnection.connectionInstance().createConnection();
 			Statement stmt=dbConnection.createStatement();
 			String query="select * from inventory where SYSTEMDATE in("+"'"+fromdate+"'"+","+"'"+todate+"'"+")";
-		
+
 			ResultSet rs=stmt.executeQuery(query);
-			DateSelectorBean datebean = new DateSelectorBean();
-			
+			DateSelectorBean datebean = null;
+			list = new ArrayList<DateSelectorBean>();
 			while(rs.next()){
-				
+				datebean = new DateSelectorBean();
+				/*
 				System.out.println(rs.getNString(1)+"\t"+
 						rs.getNString(2)+"\t"+
 						rs.getNString(3)+"\t"+
@@ -39,7 +39,8 @@ public class ReportDaoImpl implements ReportDao{
 						rs.getNString(8)+"\t"+
 						rs.getNString(9)
 						);
-				
+				 */
+
 				datebean.setItem(rs.getNString(1));
 				datebean.setRate(rs.getNString(2));
 				datebean.setQuantity(rs.getNString(3));
@@ -49,22 +50,28 @@ public class ReportDaoImpl implements ReportDao{
 				datebean.setAmount(rs.getNString(7));
 				datebean.setPayment(rs.getNString(8));
 				datebean.setBalance(rs.getNString(9));
-				
+
+
 				list.add(datebean);
 			}
 			
+			for(DateSelectorBean record:list){
+				System.out.println("in DaoIMpl"+record.getItem()+
+						record.getRate()	
+						);
+			}
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return list;
 	}
 
-	
-		// TODO Auto-generated method stub
-		
-	}
+
+
+}
 
 

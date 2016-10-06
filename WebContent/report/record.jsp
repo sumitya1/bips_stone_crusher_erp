@@ -35,8 +35,8 @@
 
 <% for(int i = 0; i < records.size(); i++) { %>
 
-<tr class="success"><td><%=records.get(0).getItem() %></td>
-
+<tr class="success">
+<td><%=records.get(i).getItem() %></td>
 <td><%=records.get(i).getRate() %></td>
 <td><%=records.get(i).getQuantity() %></td>
 <td><%=records.get(i).getSystemdate() %></td>
@@ -51,7 +51,15 @@
  
 </table>
 <table class="table" style="width:75%;margin-left:135px">
-<tr class="info" ><td><label>Total</label></td></tr>
+<tr class="info" >
+<td><label>Total</label></td>
+</tr>
+<tr>Want to send this report in mail in pdf </tr>
+<tr>
+<form action="/pdfreport" method="post">
+ <input type="submit" value="Submit" id="submit" size="10" style="margin-left: 10px;">
+</form>
+</tr>
 
 </table>
 </body>
