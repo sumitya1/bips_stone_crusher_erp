@@ -26,7 +26,18 @@
        
        <table>
        <tr>
-     
+     <td>
+         <div  style="margin-top:20px">
+         <label style="margin-left: 30px;">Select Department </label><br>
+          <select id="report_type" name="report_type" style="margin-left: 30px;">
+				<option value="-1" selected>[choose report type]</option>
+				<option value="inventory">Inventory</option>
+				<option value="sales">Sales</option>
+				<option value="minning">Minning</option>
+				<option value="employee">Employee</option>
+			</select>
+         </div>  
+          </td>
           <td>
           <div  style="margin-top:20px">
              <label style="margin-left: 30px;">Select From Date</label><br>

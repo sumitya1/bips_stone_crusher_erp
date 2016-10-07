@@ -3,5 +3,5 @@ package com.bips.report.dao;
 import java.util.List;
 
 public interface ReportDao {
- public List findData(String startdate, String enddate) throws ClassNotFoundException;
+ public List findData(String report_type,String startdate, String enddate) throws ClassNotFoundException;
 }

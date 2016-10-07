@@ -15,32 +15,20 @@ public class ReportDaoImpl implements ReportDao{
 	private Connection dbConnection = null;
 	private List<DateSelectorBean> list= null;
 
-	public List<DateSelectorBean> findData(String fromdate,String todate) throws ClassNotFoundException{
+	public List<DateSelectorBean> findData(String report_type,String fromdate,String todate) throws ClassNotFoundException{
 
 
 		try {
 			dbConnection = DataConnection.connectionInstance().createConnection();
 			Statement stmt=dbConnection.createStatement();
-			String query="select * from inventory where SYSTEMDATE in("+"'"+fromdate+"'"+","+"'"+todate+"'"+")";
+			String query="select * from "+report_type+" where SYSTEMDATE in("+"'"+fromdate+"'"+","+"'"+todate+"'"+")";
 
 			ResultSet rs=stmt.executeQuery(query);
 			DateSelectorBean datebean = null;
 			list = new ArrayList<DateSelectorBean>();
 			while(rs.next()){
 				datebean = new DateSelectorBean();
-				/*
-				System.out.println(rs.getNString(1)+"\t"+
-						rs.getNString(2)+"\t"+
-						rs.getNString(3)+"\t"+
-						rs.getNString(4)+"\t"+
-						rs.getNString(5)+"\t"+
-						rs.getNString(6)+"\t"+
-						rs.getNString(7)+"\t"+
-						rs.getNString(8)+"\t"+
-						rs.getNString(9)
-						);
-				 */
-
+				
 				datebean.setItem(rs.getNString(1));
 				datebean.setRate(rs.getNString(2));
 				datebean.setQuantity(rs.getNString(3));

@@ -56,7 +56,7 @@
 </tr>
 <tr>Want to send this report in mail in pdf </tr>
 <tr>
-<form action="/pdfreport" method="post">
+<form action="pdfreport" method="post">
  <input type="submit" value="Submit" id="submit" size="10" style="margin-left: 10px;">
 </form>
 </tr>

@@ -3,6 +3,7 @@ package com.bips.report.utility;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 import com.bips.report.dao.DataConnection;
@@ -26,65 +27,61 @@ public class PDFReport {
 	private static ResultSet rs;
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
 	private static Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 22, Font.NORMAL, new CMYKColor(255, 0, 0, 0));
-	public String  generateReport() throws Exception {
+	private String[] colnames;
 
+	public String  generateReport(String report_type, String startdate,String enddate) throws Exception {
 
-
-		sql = "select ITEM_NAME, RENT_RATE, RENT_TYPE from inventoryitems";
+		sql ="select * from "+report_type+" where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
 
 		dbConnection = DataConnection.connectionInstance().createConnection();
 		statement= dbConnection.createStatement();
 		rs = statement.executeQuery(sql);
-		Document document = new Document();
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Inventoryreport.pdf"));
 
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		System.out.println("I am here0 with column no.-"+columnsNumber);
+
+		colnames = new String[columnsNumber];
+
+		for (int i = 1; i <= columnsNumber; i++ ) {
+			colnames[i-1] = rsmd.getColumnName(i);
+		
+		}
+
+		Document document = new Document();
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/syadav/Desktop/DeskTop/BIPS/PDFReports/Inventoryreport.pdf"));
 
 		document.open();
-
-
 		addMetaData(document);
 		addTitlePage(document);
 
-		//we have four columns in our table
-		PdfPTable my_report_table = new PdfPTable(3);
+		//we have four columnsNumber in our table
+		PdfPTable my_report_table = new PdfPTable(columnsNumber);
 		//create a cell object
 		PdfPCell table_cell;
-		String ITEM_NAME = "ITEM_NAME";
-		String RENT_RATE = "RENT_RATE";
-		String RENT_TYPE = "RENT_TYPE";
-		table_cell = new PdfPCell(new Phrase(ITEM_NAME));
-		my_report_table.addCell(table_cell);
 
-		table_cell = new PdfPCell(new Phrase(RENT_RATE));
-		my_report_table.addCell(table_cell);
-
-		table_cell = new PdfPCell(new Phrase(RENT_TYPE));
-		my_report_table.addCell(table_cell);
+		for(int j=0; j <columnsNumber ;j++){
+			table_cell = new PdfPCell(new Phrase(colnames[j]));
+			my_report_table.addCell(table_cell);
+		}
 
 
 		while(rs.next()){
-			System.out.println();
-
-			while(rs.next()){
-
-				String item_name = rs.getNString(1);
-				table_cell = new PdfPCell(new Phrase(item_name));
+			for(int k=1;k <= columnsNumber;k++){
+				String value = rs.getNString(k);
+				table_cell = new PdfPCell(new Phrase(value));
 				my_report_table.addCell(table_cell);
-
-				String rent_rate = rs.getNString(2);
-				table_cell = new PdfPCell(new Phrase(rent_rate));
-				my_report_table.addCell(table_cell);
-
-				String rent_type = rs.getNString(3);
-				table_cell = new PdfPCell(new Phrase(rent_type));
-				my_report_table.addCell(table_cell);
-
 			}
-			document.add(my_report_table);
-			document.close();
-			writer.close();
+
 		}
+		document.add(my_report_table);
+		document.close();
+		writer.close();
+
 		return "Sucessfully Generated Report!";
+
+
+
 	}
 
 
