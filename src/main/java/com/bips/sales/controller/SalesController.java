@@ -29,8 +29,8 @@ public class SalesController extends HttpServlet {
 		salesitems.setQuantity(request.getParameter("quantity"));
 		salesitems.setNo_of_trucks(request.getParameter("no_of_trucks"));
 		salesitems.setCompany_name(request.getParameter("company_name"));
-		salesitems.setTotal(request.getParameter("total"));
-		salesitems.setPayment_received(request.getParameter("payment_received"));
+		salesitems.setTotal(request.getParameter("amount"));
+		salesitems.setPayment_received(request.getParameter("payment"));
 		salesitems.setBalance(request.getParameter("balance"));
 		SalesDaoImpl submtitems = new SalesDaoImpl();
 		String msg = submtitems.submitItems(salesitems);

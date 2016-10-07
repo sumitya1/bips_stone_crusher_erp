@@ -95,7 +95,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BIPS STONE CRUSHER ERP</title>
 </head>
-<body>
+<body style="background-color:orange">
 	<h2 align="center">Welcome to Inventory Management System</h2>
 
 	<form action="../inventoryset" name="submitform" id="configform" onsubmit="return(validate());" >

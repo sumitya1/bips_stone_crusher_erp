@@ -29,9 +29,17 @@ public class PDFReport {
 	private static Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 22, Font.NORMAL, new CMYKColor(255, 0, 0, 0));
 	private String[] colnames;
 
-	public String  generateReport(String report_type, String startdate,String enddate) throws Exception {
+	public String  generateReport(String fl_report_type, String startdate,String enddate) throws Exception {
 
-		sql ="select * from "+report_type+" where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
+		if(fl_report_type.equals("tr_sales")){
+			sql="select sum(TOTAL) as total,SYSTEMDATE from sales group by SYSTEMDATE order by total desc";
+		}
+		
+		if(fl_report_type.equals("tr_fuel")){
+			sql="select item,fuel from inventory where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")"+" order by SYSTEMDATE desc";
+		}
+		else
+		 sql ="select * from "+fl_report_type+" where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
 
 		dbConnection = DataConnection.connectionInstance().createConnection();
 		statement= dbConnection.createStatement();

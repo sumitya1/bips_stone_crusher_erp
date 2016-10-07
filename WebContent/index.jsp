@@ -21,7 +21,7 @@
 <h1>Mining</h1>
 <h1>EMployee Management</h1>
 <a href="sales/salesindex.jsp"><h1>Sales</h1></a>
-<a href="report/dateselector.jsp"><h1>Generate Report</h1></a>
+<a href="report/reportindex.jsp"><h1>Generate Report</h1></a>
 <a href="Admin/Admin.jsp"><h1>Admin</h1></a>
 <a href="Manager/Manager.jsp"><h1>Manager</h1></a>
 <a href="User/User.jsp"><h1>User</h1></a>

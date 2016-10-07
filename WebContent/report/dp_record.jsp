@@ -12,10 +12,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Record</title>
 </head>
-<body>
+<body style="background-color:orange">
 
 
-<% List<DateSelectorBean> records = (List)request.getAttribute("records");%>
+<% List<DateSelectorBean> records = (List)request.getAttribute("dp_records");%>
 
 
 <table class="table" style="width:70%;margin-left:200px">
@@ -50,15 +50,21 @@
  <% } %>
  
 </table>
-<table class="table" style="width:75%;margin-left:135px">
+<table class="table" style="width:100%;margin-left:170px">
 <tr class="info" >
 <td><label>Total</label></td>
 </tr>
-<tr>Want to send this report in mail in pdf </tr>
+ <br>
 <tr>
-<form action="pdfreport" method="post">
- <input type="submit" value="Submit" id="submit" size="10" style="margin-left: 10px;">
-</form>
+	<td>
+	<label style="margin-left: 30px;">Want to send this report in mail in pdf</label>
+	</td>
+
+	<td>
+	<form action="pdfreport" method="post">
+	 <input type="submit" value="Submit" id="submit" size="10" style="margin-left: 10px;">
+	</form>
+	</td>
 </tr>
 
 </table>

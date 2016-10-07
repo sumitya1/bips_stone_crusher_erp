@@ -10,45 +10,71 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bips.report.beans.DateSelectorBean;
+import com.bips.report.beans.SalesByDateBean;
 import com.bips.report.dao.ReportDaoImpl;
 
 
 @WebServlet("/dateselector/*")
 public class DateSelectorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private List<DateSelectorBean> dp_records = null;
+	private List<SalesByDateBean> tr_records = null;
+	private ReportDaoImpl reprtdaoimpl = null;
 
-	
 
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
-		
+
 		String report_type = request.getParameter("report_type");
-		String fromdate = request.getParameter("fromdate");
-		String todate = request.getParameter("todate");
-		
-		HttpSession session=request.getSession();  
-		session.setAttribute("report_type",report_type);
-        session.setAttribute("fromdate",fromdate);  
-        session.setAttribute("todate", todate);
-        
-		ReportDaoImpl reprtdaoimpl = new ReportDaoImpl();
-		
-	    List<DateSelectorBean> records = null;
-		try {
-			records = reprtdaoimpl.findData(report_type,fromdate, todate);
-		} catch (ClassNotFoundException e) {
-		
-			e.printStackTrace();
+		if(report_type.equals("department")){
+
+			String dp_report_type = request.getParameter("dp_report_type");
+			String dp_fromdate = request.getParameter("dp_fromdate");
+			String dp_todate = request.getParameter("dp_todate");
+
+			HttpSession session=request.getSession();  
+			session.setAttribute("report_type",report_type);
+			session.setAttribute("dp_report_type",dp_report_type);
+			session.setAttribute("dp_fromdate",dp_fromdate);  
+			session.setAttribute("dp_todate", dp_todate);
+
+			reprtdaoimpl = new ReportDaoImpl();
+
+
+			try {
+				dp_records = reprtdaoimpl.findData(dp_report_type,dp_fromdate, dp_todate);
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+			}
+			request.setAttribute("dp_records", dp_records);
+			request.getRequestDispatcher("/report/dp_record.jsp").forward(request,response);
 		}
-		
-		for(DateSelectorBean record:records){
-			System.out.println("in COntrolller"+record.getItem()+
-					record.getRate()	
-					);
+		else{
+			String tr_report_type = request.getParameter("tr_report_type");
+			String tr_fromdate = request.getParameter("tr_fromdate");
+			String tr_todate = request.getParameter("tr_todate");
+
+			HttpSession session=request.getSession();  
+			session.setAttribute("report_type",report_type);
+			session.setAttribute("tr_report_type",tr_report_type);
+			session.setAttribute("tr_fromdate",tr_fromdate);  
+			session.setAttribute("tr_todate", tr_todate);
+
+			reprtdaoimpl = new ReportDaoImpl();
+			
+			try {
+				tr_records = reprtdaoimpl.SalesByDate(tr_report_type,tr_fromdate, tr_todate);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("tr_records", tr_records);
+			request.getRequestDispatcher("/report/tr_record.jsp").forward(request,response);
+			
 		}
-	    request.setAttribute("records", records);
-		request.getRequestDispatcher("/report/record.jsp").forward(request,
-				response);
+
 
 	}
 

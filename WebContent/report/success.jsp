@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Success</title>
 </head>
-<body>
+<body style="background-color:orange">
 <%
   String message = (String) request.getAttribute("msg");
   out.println(message);

@@ -55,7 +55,7 @@
 		if(document.submitform.systemdate.value == "mm/dd/yyyy")
 	       {
 	          alert( "Please Select Date!" );
-	          document.submitform.usage.focus() ;
+	          document.submitform.systemdate.focus() ;
 	          return false;
 	       } 
 		
@@ -106,16 +106,19 @@
 	   return false; // Prevent page refresh
 	} */
 
+	
+	$("#salesform").reset();
+	
    </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BIPS STONE CRUSHER ERP</title>
 </head>
-<body>
+<body style="background-color:orange">
 
 	<h2 align="center">Welcome to Sales Management System</h2>
 		
-	<form action="../salescontroller" name="submitform" onsubmit="return(validate());" method="post">
+	<form action="../salescontroller" id="salesform" name="submitform" onsubmit="return(validate());" method="post">
 	
 		 <table id="iventorygettable" style="margin-left: 50px;" border="1" cellspacing="1" cellpadding="1">
 		 <tr>
@@ -135,10 +138,10 @@
 			<td>
 			 <select id="stone_type" name="stone_type" style="margin-left: 25px;">
 	    		<option value ="-1">[choose Stone Type]</option>
-	    		<option value ="1">20mm</option>
-	    		<option value ="2">25mm</option>
-	    		<option value ="3">40mm</option>
-	    		<option value ="4">50mm</option>
+	    		<option value ="20">20mm</option>
+	    		<option value ="25">25mm</option>
+	    		<option value ="40">40mm</option>
+	    		<option value ="50">50mm</option>
 		</select>
 		</td> 
 		<td><input type="text" value="mm/dd/yyyy" id="currentdate" name="systemdate" style="margin-left: 10px;" size="10" /></td>
@@ -148,7 +151,7 @@
 		<td><input id="quantity" type="text" value="Quantity" name="quantity" style="margin-left: 10px;" size="10" onchange="getamount();" onfocus="getamount();" /></td>
 		
 		<td>
-		<select id="no_of_trucks" name="no_of_trucks" style="margin-left: 25px;" onclick='getrate()'>
+		<select id="no_of_trucks" name="no_of_trucks" style="margin-left: 25px;" onchange="getamount();">
 	    		<option value ="-1">[choose no_of_truck]</option>
 	    		<option value ="1">1</option>
 	    		<option value ="2">2</option>

@@ -176,7 +176,7 @@ var renttypeArray = [];
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BIPS STONE CRUSHER ERP</title>
 </head>
-<body>
+<body style="background-color:orange">
 
 	<h2 align="center">Welcome to Inventory Management System</h2>
 	<input type="button" value="Add New Item" style="margin-left: 50px;" style="margin-top:50px;" name="addnewitem"
