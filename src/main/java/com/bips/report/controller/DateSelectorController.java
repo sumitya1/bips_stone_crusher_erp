@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bips.report.beans.DateSelectorBean;
-import com.bips.report.beans.SalesByDateBean;
+import com.bips.report.beans.ReportBean;
 import com.bips.report.dao.ReportDaoImpl;
 
 
@@ -18,7 +18,7 @@ import com.bips.report.dao.ReportDaoImpl;
 public class DateSelectorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private List<DateSelectorBean> dp_records = null;
-	private List<SalesByDateBean> tr_records = null;
+	private List<ReportBean> tr_records = null;
 	private ReportDaoImpl reprtdaoimpl = null;
 
 
@@ -42,13 +42,15 @@ public class DateSelectorController extends HttpServlet {
 
 
 			try {
-				dp_records = reprtdaoimpl.findData(dp_report_type,dp_fromdate, dp_todate);
+				dp_records = reprtdaoimpl.findDeptData(dp_report_type,dp_fromdate, dp_todate);
 			} catch (ClassNotFoundException e) {
 
 				e.printStackTrace();
 			}
 			request.setAttribute("dp_records", dp_records);
-			request.getRequestDispatcher("/report/dp_record.jsp").forward(request,response);
+			String forwardstring = "/report/"+dp_report_type+"_record.jsp";
+			System.out.println("forwardstring string is_="+forwardstring);
+			request.getRequestDispatcher(forwardstring).forward(request,response);
 		}
 		else{
 			String tr_report_type = request.getParameter("tr_report_type");
@@ -60,18 +62,24 @@ public class DateSelectorController extends HttpServlet {
 			session.setAttribute("tr_report_type",tr_report_type);
 			session.setAttribute("tr_fromdate",tr_fromdate);  
 			session.setAttribute("tr_todate", tr_todate);
-
-			reprtdaoimpl = new ReportDaoImpl();
 			
+			System.out.println("Sales values in controller are:="+report_type+"\t"+tr_report_type+"\t"+tr_fromdate+"\t"+tr_todate);
+			
+			reprtdaoimpl = new ReportDaoImpl();
+				System.out.println("values are:="+tr_report_type+tr_fromdate+tr_todate);
 			try {
-				tr_records = reprtdaoimpl.SalesByDate(tr_report_type,tr_fromdate, tr_todate);
+				tr_records = reprtdaoimpl.findTrendData(tr_report_type,tr_fromdate, tr_todate);
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 			
 			request.setAttribute("tr_records", tr_records);
-			request.getRequestDispatcher("/report/tr_record.jsp").forward(request,response);
+			
+			String forwardstring = "/report/"+tr_report_type+"_record.jsp";
+			System.out.println("forwardstring string is_="+forwardstring);
+			
+			request.getRequestDispatcher(forwardstring).forward(request,response);
 			
 		}
 

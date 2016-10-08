@@ -161,7 +161,7 @@
        <tr>
 	       	<td>
 	       <div  style="margin-top:20px">
-         	<label style="margin-left: 30px;">Select Department </label><br>
+         	<label style="margin-left: 30px;">Select Trend Type </label><br>
           		<select id="tr_report_type" name="tr_report_type" style="margin-left: 30px;">
 					<option value="-1" selected>[choose Trending report type]</option>
 					<option value="tr_sales">Trending in Sales</option>

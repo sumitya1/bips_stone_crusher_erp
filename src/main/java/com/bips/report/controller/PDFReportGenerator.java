@@ -1,6 +1,11 @@
 package com.bips.report.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,20 +42,71 @@ public class PDFReportGenerator extends HttpServlet {
 		}
 
 
-		System.out.println("printing here:-"+report_type+"\t"+fl_report_type+"\t"+fromdate+"\t"+todate);
-
 		try {
-			msg = pdfreport.generateReport(fl_report_type,fromdate,todate);
+			msg = pdfreport.generateReport(report_type,fl_report_type,fromdate,todate);
 			System.out.println("Message is here"+msg);
+			
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		request.setAttribute("msg", msg);
-		request.getRequestDispatcher("/report/success.jsp").forward(request,
-				response);
+		//request.setAttribute("msg", msg);
+		//request.getRequestDispatcher("/report/success.jsp").forward(request,
+		//		response);
 
 	}
+	
+	
+	 protected void doGet(HttpServletRequest request,
+	            HttpServletResponse response) throws ServletException, IOException {
+		 doPost(request,response);
+		 
+		// reads input file from an absolute path
+	        String filePath = "/home/syadav/Desktop/DeskTop/BIPS/PDFReports/Inventoryreport.pdf";
+	        File downloadFile = new File(filePath);
+	        FileInputStream inStream = new FileInputStream(downloadFile);
+	        
+	        String relativePath = getServletContext().getRealPath("");
+	        System.out.println("relativePath = " + relativePath);
+	        
+		 
+	     // obtains ServletContext
+	        ServletContext context = getServletContext();
+	        
+	     // gets MIME type of the file
+	        String mimeType = context.getMimeType(filePath);
+	        if (mimeType == null) {         
+	            // set to binary type if MIME mapping not found
+	            mimeType = "application/octet-stream";
+	        }
+	        System.out.println("MIME type: " + mimeType);
+	         
+	     // modifies response
+	        response.setContentType(mimeType);
+	        response.setContentLength((int) downloadFile.length());
+	        
+	        // forces download
+	        String headerKey = "Content-Disposition";
+	        String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+	        response.setHeader(headerKey, headerValue);
+	        
+	        
+	     // obtains response's output stream
+	        OutputStream outStream = response.getOutputStream();
+	        
+	        
+	        byte[] buffer = new byte[4096];
+	        int bytesRead = -1;
+	         
+	        while ((bytesRead = inStream.read(buffer)) != -1) {
+	            outStream.write(buffer, 0, bytesRead);
+	        }
+	        
+	        
+	        inStream.close();
+	        outStream.close();   
+	 }
 
 }

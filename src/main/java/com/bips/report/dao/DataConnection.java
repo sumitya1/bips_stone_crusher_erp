@@ -19,14 +19,14 @@ public class DataConnection
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+	
 			e.printStackTrace();
 		}  
 		try {
 			connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:ORCL","scott","lion");
 			System.out.println("connection establised"+connection);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+	
 			e.printStackTrace();
 		}
 		

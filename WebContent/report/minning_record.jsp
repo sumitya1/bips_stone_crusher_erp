@@ -21,31 +21,23 @@
 <table class="table" style="width:70%;margin-left:200px">
 <tr>
 
-<td><label>ITEM</label></td>
-<td><label>RATE<label></td>
-<td><label>QUANTITY</label></td>
+<td><label>NOOFHOLES</label></td>
+<td><label>FEET<label></td>
+<td><label>RATE</label></td>
 <td><label>SYSTEMDATE</label></td>
-<td><label>USAGE</label></td>
-<td><label>FUEL</label></td>
-<td><label>AMOUNT</label></td>
-<td><label>PAYMENT</label></td>
-<td><label>BALANCE</label></td>
-
+<td><label>TOTALFEET</label></td>
+<td><label>TOTALRS</label></td>
 </tr>
 
 <% for(int i = 0; i < records.size(); i++) { %>
 
 <tr class="success">
-<td><%=records.get(i).getItem() %></td>
+<td><%=records.get(i).getNo_of_holes() %></td>
+<td><%=records.get(i).getFeet() %></td>
 <td><%=records.get(i).getRate() %></td>
-<td><%=records.get(i).getQuantity() %></td>
 <td><%=records.get(i).getSystemdate() %></td>
-<td><%=records.get(i).getUsage()%></td>
-<td><%=records.get(i).getFuel() %></td>
-<td><%=records.get(i).getAmount() %></td>
-<td><%=records.get(i).getPayment() %></td>
-<td><%=records.get(i).getBalance() %></td>
-
+<td><%=records.get(i).getTotal_feet()%></td>
+<td><%=records.get(i).getTotalrs() %></td>
 </tr>
  <% } %>
  
@@ -56,15 +48,22 @@
 </tr>
  <br>
 <tr>
-	<td>
-	<label style="margin-left: 30px;">Want to send this report in mail in pdf</label>
+	<td colspan="2">
+	<label style="margin-left: 50px;">Want to save this report in pdf file</label>
 	</td>
 
 	<td>
-	<form action="pdfreport" method="post">
-	 <input type="submit" value="Submit" id="submit" size="10" style="margin-left: 10px;">
+	<form action="pdfreport" method="get">
+	 <input type="submit" value="Submit" id="submit" size="10" >
 	</form>
 	</td>
+</tr>
+
+<tr>
+	<td>
+		 <a href="report/mailform.jsp" style="color:green;">Want to email this report</a>
+	</td>
+
 </tr>
 
 </table>

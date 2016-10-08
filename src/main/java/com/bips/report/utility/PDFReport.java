@@ -21,30 +21,65 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFReport {
 
-	private static Connection dbConnection = null;
-	private  static Statement statement = null;
-	private static String sql;
-	private static ResultSet rs;
-	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
-	private static Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 22, Font.NORMAL, new CMYKColor(255, 0, 0, 0));
+	private Connection dbConnection = null;
+	private Statement statement = null;
+	private String sql = null;
+	private ResultSet rs;
+	private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
+	private Font blueFont = FontFactory.getFont(FontFactory.HELVETICA, 22, Font.NORMAL, new CMYKColor(255, 0, 0, 0));
 	private String[] colnames;
 
-	public String  generateReport(String fl_report_type, String startdate,String enddate) throws Exception {
-
-		if(fl_report_type.equals("tr_sales")){
-			sql="select sum(TOTAL) as total,SYSTEMDATE from sales group by SYSTEMDATE order by total desc";
-		}
+	public String  generateReport(String report_type ,String fl_report_type, String startdate,String enddate) throws Exception {
 		
-		if(fl_report_type.equals("tr_fuel")){
-			sql="select item,fuel from inventory where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")"+" order by SYSTEMDATE desc";
+		if(report_type.equals("department")){
+			
+			switch(fl_report_type){
+				case "inventory" :
+		            sql="select * from "+fl_report_type+" where SYSTEMDATE "
+							+ "in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
+		            break;
+				case "sales" :
+		            sql="select * from "+fl_report_type+" where SYSTEMDATE "
+							+ "in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
+		            break;
+			
+				case "minning" :
+		           	 sql="select * from "+fl_report_type+" where SYSTEMDATE "
+							+ "in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
+		            break;
+			
+				case "employee" :
+		             sql="select employee_name,rs,SYSTEMDATE,description from DailyExpenses where SYSTEMDATE "
+							+ "in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
+		            break;
+			}
+			
+		}	
+		else{
+			switch(fl_report_type){
+			case "tr_sales" :
+				System.out.println("table name is="+fl_report_type);
+				//sql="select TOTAL,SYSTEMDATE from sales order by SYSTEMDATE desc";
+	            break;
+			case "tr_fuel" :
+				sql="select item,fuel from inventory where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")"+" order by SYSTEMDATE desc";
+	            break;
+		
+			case "tr_expense" :
+				sql ="select employee_name,rs,description from DailyExpenses order by rs desc";
+	            break;
+		
+			}
+			
+			
 		}
-		else
-		 sql ="select * from "+fl_report_type+" where SYSTEMDATE in("+"'"+startdate+"'"+","+"'"+enddate+"'"+")";
-
 		dbConnection = DataConnection.connectionInstance().createConnection();
 		statement= dbConnection.createStatement();
+		System.out.println("Here 1=");
 		rs = statement.executeQuery(sql);
 
+		System.out.println("Here 2=");
+		
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnsNumber = rsmd.getColumnCount();
 		System.out.println("I am here0 with column no.-"+columnsNumber);
@@ -57,7 +92,7 @@ public class PDFReport {
 		}
 
 		Document document = new Document();
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/syadav/Desktop/DeskTop/BIPS/PDFReports/Inventoryreport.pdf"));
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/syadav/git/bips_stone_crusher_erp/WebContent/BIPSreport.pdf"));
 
 		document.open();
 		addMetaData(document);
@@ -102,7 +137,7 @@ public class PDFReport {
 	}
 
 
-	private static void addTitlePage(Document document) throws DocumentException {
+	public void addTitlePage(Document document) throws DocumentException {
 		Paragraph preface = new Paragraph();
 		// We add one empty line
 		addEmptyLine(preface, 1);
@@ -118,7 +153,7 @@ public class PDFReport {
 		//document.newPage();
 	}
 
-	private static void addEmptyLine(Paragraph paragraph, int number) {
+	public void addEmptyLine(Paragraph paragraph, int number) {
 		for (int i = 0; i < number; i++) {
 			paragraph.add(new Paragraph(" "));
 		}
